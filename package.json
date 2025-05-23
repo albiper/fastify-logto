@@ -1,0 +1,48 @@
+{
+  "name": "@albirex/fastify-logto",
+  "version": "1.0.4",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    "types": "./lib/index.d.ts",
+    "import": "./lib/index.js",
+    "default": "./lib/index.js"
+  },
+  "scripts": {
+    "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
+    "precommit": "lint-staged",
+    "check": "tsc --noEmit",
+    "build": "rm -rf lib/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
+    "lint": "eslint --ext .ts src",
+    "test:coverage": "vitest --silent --coverage",
+    "prepack": "pnpm build && pnpm test",
+    "test": "vitest"
+  },
+  "author": "Alberto Perona",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@logto/node": "^3.1.4",
+    "fastify-plugin": "^5.0.1"
+  },
+  "devDependencies": {
+    "@fastify/session": "^11.1.0",
+    "@silverhand/ts-config-react": "^6.0.0",
+    "@types/cookie-parser": "^1.4.3",
+    "@vitest/coverage-v8": "^2.1.9",
+    "cookie-parser": "^1.4.6",
+    "fastify": "^5.3.2",
+    "lint-staged": "^15.0.0",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.9"
+  },
+  "eslintConfig": {
+    "extends": "@silverhand"
+  },
+  "prettier": "@silverhand/eslint-config/.prettierrc",
+  "peerDependencies": {
+    "fastify": ">=4"
+  }
+}
