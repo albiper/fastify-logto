@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "publishConfig": {
-    "registry": "https://github.com/albiper/fastify-logto.git"
+    "registry": "https://github.com/albiper/fastify-logto"
   },
   "scripts": {
     "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
