@@ -4,6 +4,9 @@
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "publishConfig": {
+    "registry": "https://github.com/albiper/fastify-logto.git"
+  },
   "scripts": {
     "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
     "precommit": "lint-staged",
