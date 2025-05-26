@@ -33,10 +33,9 @@ jobs:
           version: 10.10.0
       - uses: actions/setup-node@v4
         with:
+          token: ${{secrets.NPM_ACCESS_TOKEN}}
           cache: pnpm
           node-version: 22
           registry-url: https://github.com/albiper/fastify-logto.git
       - run: pnpm i
       - run: pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
