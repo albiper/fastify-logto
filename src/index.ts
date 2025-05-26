@@ -1,6 +1,8 @@
 import NodeClient, { type LogtoContext } from '@logto/node';
-import type { FastifyPluginAsync, FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
+import type { FastifyInstance, FastifyPluginAsync, FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
 import fp from 'fastify-plugin';
+import fastifyCookie from '@fastify/cookie';
+import fastifySession from '@fastify/session';
 
 import { LogtoFastifyError } from './errors.js';
 import FastifyStorage from './storage.js';
@@ -35,6 +37,10 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
   let token: string | undefined;
   const prefix = config.authRoutesPrefix ?? 'logto';
 
+  fastify.register(fastifyCookie);
+  fastify.register(fastifySession, {
+    secret: 'lQutJT2nj63kjq5ThEl7bv5mPIvWqQ0P'
+  });
 
   fastify.decorate('logto', {
     getToken: async () => {
@@ -99,7 +105,7 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
     return fastify.route({
       ...options,
       preHandler: (request: FastifyRequest, response: FastifyReply) => {
-        if (!request.user?.isAuthenticated) {
+        if (!request.logToUser?.isAuthenticated) {
           return response.redirect(`${prefix}/sign-in`);
         }
       },
@@ -107,7 +113,7 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
   });
 
   // Register Logto auth routes
-  if (config.authRoutesPrefix) {
+  if (config.createAuthRoutes) {
     fastify.get(
       `/${prefix}/:action`,
       async (request: FastifyRequest<{ Params: { action: string } }>, reply: FastifyReply) => {
@@ -152,7 +158,7 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
     );
   }
 
-  fastify.decorateRequest('user');
+  fastify.decorateRequest('logToUser');
 
   // Add user context hook
   fastify.addHook('preHandler', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -168,10 +174,10 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
       if (await client.isAuthenticated()) {
         const at = await client.getAccessTokenClaims('http://test.test');
         // eslint-disable-next-line @silverhand/fp/no-mutation
-        request.user = { ...user, accessTokenClaims: at.scope?.split(' ') };
+        request.logToUser = { ...user, accessTokenClaims: at.scope?.split(' ') };
       } else {
         // eslint-disable-next-line @silverhand/fp/no-mutation
-        request.user = { ...user };
+        request.logToUser = { ...user };
       }
     } catch {
       // If auth fails or is missing, we skip attaching user
@@ -180,21 +186,25 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
   });
 };
 
+export const plugin = (fastify: FastifyInstance) => {
+  fastify.log.info('test');
+};
+
 export default fp(fastifyLogto, {
   name: 'fastify-logto',
 });
 
+export type LogToFastifyInstance = {
+  getToken: () => Promise<string>;
+  callAPI: (url: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', body?: BodyInit | null) => Promise<Response>;
+};
+
 declare module 'fastify' {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface FastifyInstance {
-    logto: {
-      getToken: () => Promise<string>;
-      callAPI: (url: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', body?: BodyInit | null) => Promise<Response>;
-    },
+    logto: LogToFastifyInstance,
     protectedRoute: (options: RouteOptions) => FastifyInstance;
   }
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface FastifyRequest {
-    user?: FastifyLogtoContext;
+    logToUser?: FastifyLogtoContext;
   }
 }
