@@ -35,7 +35,7 @@ jobs:
         with:
           cache: pnpm
           node-version: 22
-          registry-url: https://registry.npmjs.org/
+          registry-url: https://github.com/albiper/fastify-logto.git
       - run: pnpm i
       - run: pnpm publish --no-git-checks
         env:
