@@ -20,7 +20,7 @@ jobs:
         with:
           cache: pnpm
           node-version: 22
-      - run: pnpm ci
+      - run: pnpm i
       - run: pnpm test
 
   publish-npm:
