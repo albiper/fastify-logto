@@ -4,6 +4,9 @@
   "type": "module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
     "precommit": "lint-staged",
