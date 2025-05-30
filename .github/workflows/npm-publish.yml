@@ -40,11 +40,6 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org/
       - run: pnpm i
-      - name: Configure .npmrc for GitHub Packages
-        run: |
-          echo "@albirex:registry=https://registry.npmjs.org/" > ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-      - run: cat ~/.npmrc
       - run: pnpm publish --no-git-checks
         env:
           NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
