@@ -39,7 +39,7 @@ jobs:
       - run: pnpm i
       - name: Configure .npmrc for GitHub Packages
         run: |
-          echo "@albiper:registry=https:/registry.npmjs.org/" > ~/.npmrc
+          echo "@albirex:registry=https:/registry.npmjs.org/" > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_ACCESS_TOKEN }}" >> ~/.npmrc
       - run: pnpm publish --no-git-checks
         env:
