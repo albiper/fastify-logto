@@ -6,7 +6,7 @@ TAP version 14
       ...
     
     1..1
-not ok 1 - admin access # time=1923.622ms
+not ok 1 - admin access # time=3963.306ms
   ---
   at:
     fileName: test/admin.test.ts
