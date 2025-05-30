@@ -1,6 +1,6 @@
 # fastify-logto
 
-[![npm version](https://img.shields.io/npm/v/fastify-logto.svg)](https://www.npmjs.com/package/@albirex/fastify-logto)
+[![npm version](https://img.shields.io/npm/v/@albirex/fastify-logto.svg)](https://www.npmjs.com/package/@albirex/fastify-logto)
 <!-- [![CI](https://github.com/albiper/fastify-logto/actions/workflows/ci.yml/badge.svg)](https://github.com/albiper/fastify-logto/actions/workflows/ci.yml) -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
