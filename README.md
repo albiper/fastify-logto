@@ -79,3 +79,10 @@ pnpm link --global
 cd ../your-app
 pnpm link --global fastify-logto
 ```
+## License
+This project is licensed under the MIT License.
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+
+For more information and advanced usage, please refer to the official documentation for [Platformatic](https://platformatic.dev/docs/db/plugin) and [LogTo](https://docs.logto.io/introduction).
