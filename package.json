@@ -25,7 +25,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@albirex/fastify-logto": "link:",
     "@fastify/cookie": "^11.0.2",
     "@fastify/session": "^11.1.0",
     "@logto/node": "^3.1.4",

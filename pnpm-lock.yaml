@@ -16,9 +16,6 @@ importers:
 
   .:
     dependencies:
-      '@albirex/fastify-logto':
-        specifier: 'link:'
-        version: 'link:'
       '@fastify/cookie':
         specifier: ^11.0.2
         version: 11.0.2
