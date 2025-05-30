@@ -88,7 +88,7 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
         if (res.status === 401) {
           const errorBody = await res.json();
 
-          if (errorBody.data.code === 'ERR_JWT_EXPIRED') {
+          if (errorBody.code === 'ERR_JWT_EXPIRED') {
             await fastify.logto.getToken();
             return fastify.logto.callAPI(url, method, body);
           }
