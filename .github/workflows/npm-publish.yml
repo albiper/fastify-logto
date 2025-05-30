@@ -4,6 +4,9 @@
 name: Node.js Package
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
   release:
     types: [created]
@@ -41,7 +44,7 @@ jobs:
         run: |
           echo "@albirex:registry=https://registry.npmjs.org/" > ~/.npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_ACCESS_TOKEN }}" >> ~/.npmrc
-      - run: cat .npmrc
+      - run: cat ~/.npmrc
       - name: Check npm auth
         run: npm whoami --registry=https://registry.npmjs.org/
         env:
