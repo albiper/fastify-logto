@@ -1,9 +1,9 @@
-<center>
+<p align="center">
 <img alt="NPM Version" src="https://img.shields.io/npm/v/%40albirex%2Ffastify-logto">
 <img alt="GitHub License" src="https://img.shields.io/github/license/albiper/fastify-logto">
 <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/albiper/fastify-logto/npm-publish.yml">
 <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40albirex%2Ffastify-logto">
-</center>
+</p>
 <br/>
 
 # Fastify Logto Integration
