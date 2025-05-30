@@ -1,0 +1,25 @@
+TAP version 14
+# Subtest: admin access
+    not ok 1 - unhandled error
+      ---
+      tapCaught: returnedPromiseRejection
+      ...
+    
+    1..1
+not ok 1 - admin access # time=1923.622ms
+  ---
+  at:
+    fileName: test/admin.test.ts
+    lineNumber: 5
+    columnNumber: 1
+    isToplevel: true
+  source: |
+    import { adminSecret, getServer } from './helper.js'
+  
+    test('admin access', async (t) => {
+    ^
+        const app = await getServer(t);
+        t.after(() => {
+  ...
+
+1..1
