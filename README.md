@@ -1,9 +1,12 @@
-# fastify-logto
+<center>
+<img alt="NPM Version" src="https://img.shields.io/npm/v/%40albirex%2Ffastify-logto">
+<img alt="GitHub License" src="https://img.shields.io/github/license/albiper/fastify-logto">
+<img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/albiper/fastify-logto/npm-publish.yml">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40albirex%2Ffastify-logto">
+</center>
+<br/>
 
-[![npm version](https://img.shields.io/npm/v/@albirex/fastify-logto.svg)](https://www.npmjs.com/package/@albirex/fastify-logto)
-![GitHub License](https://img.shields.io/github/license/albiper/fastify-logto)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/albiper/fastify-logto/npm-publish.yml)
-
+# Fastify Logto Integration
 > 🔐 [Fastify](https://fastify.dev/) plugin for integrating with [Logto](https://logto.io), a modern open-source identity platform.
 
 ## Features
