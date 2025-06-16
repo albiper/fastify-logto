@@ -8,25 +8,58 @@ test('admin access', async (t) => {
         app.close()
     })
 
+    const scopes: {
+        id?: string;
+        name: string;
+    }[] = [
+            {
+                name: 'god_powers'
+            },
+            {
+                name: 'find:places'
+            }
+        ]
+
     await app.ready();
+    {
+        const res = await app.logto.callAPI('/api/resources', 'POST', JSON.stringify({
+            "name": "test-fastify-logto",
+            "indicator": "http://test.fastify-logto.albiper",
+            "accessTokenTtl": 3600
+        }));
 
-    const res = await app.logto.callAPI('/api/my-account', 'GET');
+        equal(res.status, 201, 'LogTo resource created');
 
-    equal(res.status, 200, 'get my account status code');
+        const createResource = await res.json();
 
-    // {
-    //     const res = await app.inject({
-    //         method: 'GET',
-    //         url: '/pages',
-    //         headers: {
-    //             'x-platformatic-admin-secret': adminSecret,
-    //         },
-    //     })
-    //     if (res.statusCode != 200) {
-    //         throw res.body;
-    //     }
+        for (const [index, scope] of scopes.entries()) {
+            const resScope = await app.logto.callAPI(`/api/resources/${createResource.id}/scopes`, 'POST', JSON.stringify({
+                "name": scope.name,
+            }));
 
-    //     equal(res.statusCode, 200, 'get pages status code')
-    //     deepEqual(res.json(), [], 'get pages response')
-    // }
+            const json = await resScope.json();
+            scopes[index].id = json.id;
+            equal(resScope.status, 201, 'LogTo scope created');
+        }
+    }
+
+    {
+        const res = await app.logto.callAPI('/api/roles', 'POST', JSON.stringify({
+            "name": "supercow",
+            "description": "supercow",
+            "type": "User",
+            "isDefault": false,
+            "scopeIds": scopes.map(scope => scope.id)
+        }));
+        equal(res.status, 200, 'LogTo supercow role created');
+
+        const resuser = await app.logto.callAPI('/api/roles', 'POST', JSON.stringify({
+            "name": "user",
+            "description": "user",
+            "type": "User",
+            "isDefault": true,
+            "scopeIds": scopes.filter(scope => scope.name === 'find:places')?.map(scope => scope.id)
+        }));
+        equal(resuser.status, 200, 'LogTo supercow role created');
+    }
 });

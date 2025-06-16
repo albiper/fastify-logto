@@ -9,8 +9,8 @@ import FastLogTo from '../src/index.js';
 export const adminSecret = 'admin';
 export const logtoBaseConfig: LogtoFastifyConfig = {
   endpoint: 'http://localhost:3001',
-  appId: 'x33chy0wqu70iwr1is2i0', // Replace with your own appId
-  appSecret: 'lQ7Jnme0z4xrlzAWPIAFirxjQAVf34xU', // Replace with your own appSecret
+  appId: 'kabilkesud6a2m1zllljq',
+  appSecret: 'ZWX4bxvHsFfgzbkXJffdHHTcmSj64gLZ', 
 }
 
 export async function getServer(t: Test) {

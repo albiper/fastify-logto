@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # aa:
+    # image: ghcr.io/logto-io/logto
+    # environment:
+    #   - CI=true
+    #   - DB_URL=postgresql://postgres:password@postgresql/postgres
+    # command:
+    #   - /bin/sh
+    # args:
+    #   - '-c'
+    #   - 'npm run alteration deploy latest'
+  logto:
+    image: svhd/logto:1.27.0
+    entrypoint: ["sh", "-c", "npm start"]
+    container_name: logto
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    environment:
+      - DB_URL=postgresql://postgres:password@postgresql/logto
+      - TRUST_PROXY_HEADER=1
+    volumes:
+      - ./test:/data
+  postgresql:
+    image: postgres:latest
+    container_name: logto_postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./test/dump.sql:/docker-entrypoint-initdb.d/logto-backup.sql
