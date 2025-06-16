@@ -26,6 +26,11 @@ services:
       - TRUST_PROXY_HEADER=1
     volumes:
       - ./test:/data
+    healthcheck:
+      test: wget http://localhost:3002 || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
   postgresql:
     image: postgres:latest
     container_name: logto_postgres
