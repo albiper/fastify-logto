@@ -24,4 +24,14 @@ jobs:
       - run: pnpm i
       - run: pnpm build
       - uses: hoverkraft-tech/compose-action@v2.0.1
+      - name: Wait for Logto to be ready
+        run: |
+          for i in {1..10}; do
+            if curl -s http://localhost:3002 > /dev/null; then
+              echo "Logto is up!"
+              break
+            fi
+            echo "Waiting for Logto..."
+            sleep 5
+          done
       - run: pnpm test
