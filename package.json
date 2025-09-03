@@ -2,16 +2,26 @@
   "name": "@albirex/fastify-logto",
   "version": "1.2.3",
   "type": "module",
-  "main": "./lib/index.js",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
+    }
+  },
   "scripts": {
     "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
     "precommit": "lint-staged",
     "check": "tsc --noEmit",
-    "build": "rm -rf lib && tsc -p tsconfig.json",
+    "build": "tsup",
     "lint": "eslint --ext .ts src",
     "test:coverage": "vitest --silent --coverage",
     "prepack": "pnpm build",
@@ -36,6 +46,7 @@
     "rollup-plugin-summary": "^3.0.1",
     "tap": "^21.1.0",
     "tslib": "^2.8.1",
+    "tsup": "^8.5.0",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {
