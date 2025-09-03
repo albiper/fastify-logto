@@ -17,6 +17,9 @@
       }
     }
   },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "dev:tsc": "tsc -p tsconfig.build.json -w --preserveWatchOutput",
     "precommit": "lint-staged",
