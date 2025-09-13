@@ -2,21 +2,9 @@
   "name": "@albirex/fastify-logto",
   "version": "1.3.1",
   "type": "module",
-  "main": "./lib/index.cjs",
+  "main": "./lib/index.js",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.js"
-      },
-      "require": {
-        "types": "./lib/index.d.cts",
-        "default": "./lib/index.cjs"
-      }
-    }
-  },
   "files": [
     "lib"
   ],
@@ -41,10 +29,11 @@
     "@fastify/cookie": "^11.0.2",
     "@fastify/session": "^11.1.0",
     "@logto/node": "^3.1.4",
-    "fastify-plugin": "^5.0.0"
+    "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
+    "fastify": "^5.2.1",
     "lint-staged": "^15.0.0",
     "rollup-plugin-summary": "^3.0.1",
     "tap": "^21.1.0",
@@ -58,6 +47,6 @@
   "prettier": "@silverhand/eslint-config/.prettierrc",
   "peerDependencies": {
     "@fastify/session": "^11.1.0",
-    "fastify": "^5.0.0"
+    "fastify": "^5.2.2"
   }
 }

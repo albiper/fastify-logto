@@ -191,7 +191,7 @@ export const plugin = (fastify: FastifyInstance) => {
 };
 
 export default fp(fastifyLogto, {
-  name: 'fastify-logto',
+  name: '@albirex/fastify-logto',
 });
 
 export type LogToFastifyInstance = {
