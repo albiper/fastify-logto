@@ -33,7 +33,7 @@ const createNodeClient = (
   });
 };
 
-const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, config) => {
+export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fastify: FastifyInstance, config: LogtoFastifyConfig) => {
   let token: string | undefined;
   const prefix = config.authRoutesPrefix ?? 'logto';
 
@@ -184,15 +184,9 @@ const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = async (fastify, con
       // Log or handle as needed
     }
   });
-};
-
-export const plugin = (fastify: FastifyInstance) => {
-  fastify.log.info('test');
-};
-
-export default fp(fastifyLogto, {
-  name: '@albirex/fastify-logto',
 });
+
+export default fastifyLogto;
 
 export type LogToFastifyInstance = {
   getToken: () => Promise<string>;
