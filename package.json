@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.21",
-    "fastify": "^5.2.1",
     "lint-staged": "^15.0.0",
     "rollup-plugin-summary": "^3.0.1",
     "tap": "^21.1.0",
@@ -47,6 +46,6 @@
   "prettier": "@silverhand/eslint-config/.prettierrc",
   "peerDependencies": {
     "@fastify/session": "^11.1.0",
-    "fastify": "^5.2.2"
+    "fastify": "^5.5"
   }
 }
