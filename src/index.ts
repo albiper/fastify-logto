@@ -63,7 +63,8 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
         throw res;
       }
 
-      token = ((await res.json()) as { access_token: string }).access_token;
+      const response = await res.json();
+      token = response.access_token;
       return token;
     },
     callAPI: async (
@@ -92,7 +93,7 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
           const errorBody = await res.json();
 
           fastify.log.debug(JSON.stringify(errorBody));
-          if (errorBody.code === 'ERR_JWT_EXPIRED') {
+          if (errorBody.code === "ERR_JWT_EXPIRED" || errorBody.data.code === 'ERR_JWT_EXPIRED') {
             await fastify.logto.getToken();
             return fastify.logto.callAPI(url, method, body);
           }
