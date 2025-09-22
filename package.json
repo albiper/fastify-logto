@@ -1,6 +1,6 @@
 {
   "name": "@albirex/fastify-logto",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "type": "module",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
