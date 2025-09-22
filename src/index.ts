@@ -59,6 +59,7 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
       });
 
       if (!res.ok) {
+        fastify.log.warn(res);
         throw res;
       }
 
@@ -75,6 +76,7 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
       }
 
       fastify.log.debug(`Fetching LogTo at URL ${config.endpoint}`);
+      fastify.log.debug(`${config.endpoint}${url}: token: ${token}`)
       const res = await fetch(`${config.endpoint}${url}`, {
         method,
         headers: {
@@ -85,16 +87,26 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
       });
 
       if (!res.ok) {
+        fastify.log.warn(res.status);
         if (res.status === 401) {
           const errorBody = await res.json();
 
+          fastify.log.debug(JSON.stringify(errorBody));
           if (errorBody.code === 'ERR_JWT_EXPIRED') {
             await fastify.logto.getToken();
             return fastify.logto.callAPI(url, method, body);
           }
         }
 
-        throw res;
+        let error = null;
+        if (res.headers['content-type'].includes('application/json'))
+          error = await res.json();
+        else
+          error = await res.text();
+
+        console.error(error);
+
+        throw error;
       }
 
       return res;
