@@ -100,7 +100,7 @@ export const fastifyLogto: FastifyPluginAsync<LogtoFastifyConfig> = fp(async (fa
         }
 
         let error = null;
-        if (res.headers['content-type'].includes('application/json'))
+        if (res.headers.get('content-type').includes('application/json'))
           error = await res.json();
         else
           error = await res.text();
